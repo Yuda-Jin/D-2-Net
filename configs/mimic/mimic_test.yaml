@@ -3,15 +3,15 @@ DATASETS:
   TRAIN: 'RRGDiffusionDataset'
   VAL: ''
   TEST: 'RRGDiffusionDataset'
-
-OUTPUT_DIR: './rrg_output/stage1/mimic_midtcn_mlp_eos_after2layertcn'
+OUTPUT_DIR: 'rrg_output/stage1/xe_mlp_eos'
+SEED: 123
 ###################################### DATALOADER ######################################
 DATALOADER:
-  TRAIN_BATCH_SIZE: 32
+  TRAIN_BATCH_SIZE: 64
   TEST_BATCH_SIZE: 128
   NUM_WORKERS: 12
   ANNO_FOLDER: "/home/jinyuda/dataset/medic/mimic_cxr/pkl/mimic_gts.pkl"
-  SEQ_PER_SAMPLE: 1
+  SEQ_PER_SAMPLE: 3
   IMAGE_PATH: '/home/jinyuda/dataset/medic/mimic_cxr/images/'
   SIMILAR_PATH: "/home/jinyuda/dataset/medic/mimic_cxr/pkl/mim_whole_bert.npy"
 
@@ -25,20 +25,15 @@ MODEL:
   META_ARCHITECTURE: 'RrgBitDiffusion'
   ENCODER: 'TransformerEncoder'
   ENCODER_DIM: 512
-  DECODER: 'TcnDiffusionTransformerDecoder'
+  DECODER: 'DiffusionTransformerDecoder'
   DECODER_DIM: 512
   PREDICTOR: 'BitDiffusionPredictor'
   PRED_DROPOUT: 0.1
   MAX_SEQ_LEN: 100
   USE_EMA: False
-#  WEIGHTS: "/home/jinyuda/Try/SCD-Net-main/rrg_output/stage1/mimic_tcn/model_Epoch_00018_Iter_0152315.pth"
+  WEIGHTS: 'to/path/MIMIC_D^2Net_Weight.pth'
 
 
-  #################################### TCN ################################################
-  TCN:
-    NUM_CHANNELS: [512, 512]
-    KERNEL_SIZE: 3
-    DROPOUT: 0.2
   #################################### Token embedding ####################################
   TOKEN_EMBED:
     NAME: 'BitEmbedding'
@@ -92,16 +87,16 @@ SOLVER:
   NORM_TYPE: 2.0
   WRITE_PERIOD: 200
 
-####################################### lr scheduler ####################################### 
+####################################### lr scheduler #######################################
 LR_SCHEDULER:
   NAME: 'NoamLR'
   MODEL_SIZE: 512
   FACTOR: 1.0
   WARMUP: 20000
 
-####################################### losses ####################################### 
+####################################### losses #######################################
 LOSSES:
-  NAMES: [ 'MSELoss', "LabelSmoothing","MlpEosLoss" ]
+  NAMES: [ 'MSELoss', "LabelSmoothing", "MlpEosLoss" ]
   LABELSMOOTHING: 0.1
 
 ####################################### scorer ####################################### 

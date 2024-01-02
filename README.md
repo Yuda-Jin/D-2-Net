@@ -1,17 +1,15 @@
-# DiffusionRRG
+# D^2Net
 
 ## Introduction
-this repository is for Generating Radiology Report via Diffusion Model(DRG) with BitDiffusion. This is developed based on [SCD-Net](https://arxiv.org/abs/2212.03099).
-![pic](RRG_Diffusion.png)
+this repository is for MPROVING RADIOLOGY REPORT GENERATION WITH D^2-NET: WHEN DIFFUSION MEETS DISCRIMINATOR. This is developed based on [SCD-Net](https://arxiv.org/abs/2212.03099).
+![pic](D^2Net.png)
+## Run
+All the shell scripts and config files are under /config folder.
+The weights can be obtained through the following links:
+    MIMIC-CXR: https://1drv.ms/u/s!AuoUHkPJ85GYkKlHUsT0l2Qjg1zHvw?e=lz12Qo
+    IU X-Ray: https://1drv.ms/u/s!AuoUHkPJ85GYkYMqMyECje537c4yXg?e=TJ3C6a
 ## Acknowledgement
 This code used resources from [X-Modaler Codebase](https://github.com/YehLi/xmodaler) and [bit-diffusion code](https://github.com/lucidrains/bit-diffusion). We thank the authors for open-sourcing their awesome projects.
 
 ## License
-
 MIT
-
-## 开发日志
-### 为什么生成的句子长度不够？
-1. 采用非自回归的方式，自回归是有强烈的因果关系的，每一个单词都根据前面的单词来判断这个时间步骤是否应该生成EOS。但是diffusion没有因果关系。
-2. 预测eos 之后的单词仍然会参与到loss计算中，但是在推理时被去除了。这导致loss和bleu指标脱节。
-3. 无法使用beam search
