@@ -10,6 +10,5 @@ The weights can be obtained through the following links:
     IU X-Ray: https://1drv.ms/u/s!AuoUHkPJ85GYkYMqMyECje537c4yXg?e=TJ3C6a
 ## Acknowledgement
 This code used resources from [X-Modaler Codebase](https://github.com/YehLi/xmodaler) and [bit-diffusion code](https://github.com/lucidrains/bit-diffusion). We thank the authors for open-sourcing their awesome projects.
-
 ## License
 MIT
